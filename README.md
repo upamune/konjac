@@ -1,5 +1,8 @@
 # konjac
+[![Circle CI](https://circleci.com/gh/upamune/konjac/tree/master.svg?style=svg)](https://circleci.com/gh/upamune/konjac/tree/master)
 
+
+![](https://i.gyazo.com/bdab6bee047af3065ce5f3e71e3587a3.gif)
 
 
 ## Description
@@ -11,6 +14,7 @@
 登録のくわしい説明です.
 
 [Microsoft Translator APIを使ってみる - Qiita](http://qiita.com/kemayako/items/21fe36005e6e729aff77)
+
 ## Usage
 
 ```bash
@@ -32,7 +36,9 @@ $ konjac 寿司食べたい
 
 ## Install
 
-To install, use `go get`:
+Windows, MacOSX, Linuxとかに対応しています. みんな大好きSolarisにも対応しています!
+
+[Releases](https://github.com/upamune/konjac/releases)
 
 ```bash
 $ go get -d github.com/upamune/konjac
