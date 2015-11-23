@@ -1,5 +1,5 @@
 # konjac
-
+[![Circle CI](https://circleci.com/gh/upamune/konjac/tree/master.svg?style=svg)](https://circleci.com/gh/upamune/konjac/tree/master)
 ![](https://i.gyazo.com/bdab6bee047af3065ce5f3e71e3587a3.gif)
 
 
