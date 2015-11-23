@@ -5,9 +5,9 @@ import (
 	"flag"
 	"fmt"
 	"github.com/BurntSushi/toml"
+	"github.com/theplant/bingtranslator/translator"
 	"io"
 	"log"
-	"github.com/theplant/bingtranslator/translator"
 )
 
 // Exit codes are int values that represent an exit code for a particular error.
@@ -92,8 +92,6 @@ func (cli *CLI) Run(args []string) int {
 
 	_ = c
 
-
-
 	if flags.NArg() == 0 {
 		log.Fatal("please set translate text")
 		return ExitCodeError
@@ -117,16 +115,16 @@ func (cli *CLI) Run(args []string) int {
 		return ExitCodeError
 	}
 
-	fmt.Println(text)
-
 	bingtranslator.SetCredentials(config.Client.Id, config.Client.Secret)
-	translations, err := bingtranslator.Translate("ja", "en", text, "INPUT_TEXT")
+	translations, err := bingtranslator.Translate("ja", "en", text, bingtranslator.INPUT_TEXT)
 	if err != nil {
 		log.Fatal(err)
 		return ExitCodeError
 	}
 
-	fmt.Println(translations)
+	for _, translate := range translations {
+		fmt.Println(translate.Text)
+	}
 
 	return ExitCodeOK
 }
