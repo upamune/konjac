@@ -14,7 +14,7 @@
 ## Usage
 
 ```bash
-$ konjac -c config.toml
+$ konjac -c config.toml 寿司食べたい
 ```
 
 ```toml:config.toml
@@ -22,6 +22,13 @@ $ konjac -c config.toml
 id = "myid"
 secret = "mysecret"
 ```
+
+ホーム直下に `.konjac.toml` を配置するとcオプション指定なしでできます.
+
+```bash
+$ konjac 寿司食べたい
+```
+
 
 ## Install
 

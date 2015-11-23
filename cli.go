@@ -5,15 +5,18 @@ import (
 	"flag"
 	"fmt"
 	"github.com/BurntSushi/toml"
+	"github.com/mitchellh/go-homedir"
 	"github.com/theplant/bingtranslator/translator"
 	"io"
 	"log"
+	"os"
 )
 
 // Exit codes are int values that represent an exit code for a particular error.
 const (
-	ExitCodeOK    int = 0
-	ExitCodeError int = 1 + iota
+	ExitCodeOK     int    = 0
+	ExitCodeError  int    = 1 + iota
+	ConfigFileName string = ".conjac.toml"
 )
 
 // CLI is the command line object
@@ -29,6 +32,21 @@ type Config struct {
 
 func (c *Config) loadConfig(fileName string) error {
 	_, err := toml.DecodeFile(fileName, c)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func isExsitConfig() error {
+	homedir, err := homedir.Dir()
+	if err != nil {
+		return err
+	}
+	configPath := homedir + "/" + ConfigFileName
+
+	_, err = os.Stat(configPath)
 	if err != nil {
 		return err
 	}
@@ -85,11 +103,6 @@ func (cli *CLI) Run(args []string) int {
 		return ExitCodeOK
 	}
 
-	if c == "" {
-		log.Fatal("please set a setting file with c option")
-		return ExitCodeError
-	}
-
 	_ = c
 
 	if flags.NArg() == 0 {
@@ -104,12 +117,32 @@ func (cli *CLI) Run(args []string) int {
 	}
 
 	config := Config{}
-	err := config.loadConfig(c)
-	if err != nil {
-		log.Fatal(err)
-		return ExitCodeError
+
+	if c == "" {
+		err := isExsitConfig()
+		if err != nil {
+			// cオプションが指定されていないかつ,ホーム直下にconfigがない
+			log.Fatal("please set a setting file with c option")
+			return ExitCodeError
+		}
+		homedir, err := homedir.Dir()
+		if err != nil {
+			log.Fatal(err)
+			return ExitCodeError
+		}
+		err = config.loadConfig(homedir + "/" + ConfigFileName)
+		if err != nil {
+			log.Fatal(err)
+			return ExitCodeError
+		}
+	} else {
+		err := config.loadConfig(c)
+		if err != nil {
+			log.Fatal(err)
+			return ExitCodeError
+		}
 	}
-	err = config.validate()
+	err := config.validate()
 	if err != nil {
 		log.Fatal(err)
 		return ExitCodeError

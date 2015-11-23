@@ -1,19 +1,3 @@
-## 0.1.0 (2015-11-23)
+## 0.2.0 (2015-11-23)
 
-Initial release
-
-### Added
-
-- Add Fundamental features
-
-### Deprecated
-
-- Nothing
-
-### Removed
-
-- Nothing
-
-### Fixed
-
-- Nothing
+cオプションが指定されていなかったらデフォルト設定ファイルを読むようにした
